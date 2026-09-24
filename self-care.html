@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毎日のセルフケアチェック</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .question {
+            margin-bottom: 16px;
+        }
+        .question label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 6px;
+            display: none;
+            line-height: 1.6;
+        }
+        .history-list {
+            list-style: none;
+            padding: 0;
+        }
+        .history-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🌱 セルフケアチェックシート</h1>
+        <p class="subtitle">毎日記録しましょう。</p>
+        
+        <form id="checkForm">
+            <!-- 1. 睡眠 -->
+            <div class="question">
+                <label>1. 睡眠は十分にとれましたか？</label>
+                <select name="sleep" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">十分とれた</option>
+                    <option value="2">普通</option>
+                    <option value="1">あまりとれなかった</option>
+                </select>
+            </div>
+
+            <!-- 2. 食事 -->
+            <div class="question">
+                <label>2. 食事は美味しく、規則正しく摂れていますか？</label>
+                <select name="meal" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">しっかり摂れた</option>
+                    <option value="2">普通</option>
+                    <option value="1">あまり摂れなかった</option>
+                </select>
+            </div>
+
+            <!-- 3. 気分 -->
+            <div class="question">
+                <label>3. 気分は落ち着いていますか？（イライラや不安感は？）</label>
+                <select name="mood" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">落ち着いている</option>
+                    <option value="2">少し波がある</option>
+                    <option value="1">イライラ・不安が強い</option>
+                </select>
+            </div>
+
+            <!-- 4. ネガティブ思考 -->
+            <div class="question">
+                <label>4. ネガティブな思考（自分を責める、絶望感など）にとらわれていませんか？</label>
+                <select name="negative_thought" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">気にならない・前向き</option>
+                    <option value="2">少しある</option>
+                    <option value="1">強く囚われている</option>
+                </select>
+            </div>
+
+            <!-- 5. 希死念慮 -->
+            <div class="question">
+                <label>5. 「消えてしまいたい」「いなくなりたい」といった思いはありますか？</label>
+                <select name="suicidal_thought" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">まったくない</option>
+                    <option value="2">少しよぎる</option>
+                    <option value="1">強くある・頻繁にある</option>
+                </select>
+            </div>
+
+            <!-- 6. 身体 -->
+            <div class="question">
+                <label>6. 身体のコリやだるさは感じますか？</label>
+                <select name="body" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">気にならない</option>
+                    <option value="2">少し感じる</option>
+                    <option value="1">かなり重い・だるい</option>
+                </select>
+            </div>
+
+            <!-- 7. 動悸 -->
+            <div class="question">
+                <label>7. 動悸（心臓がドキドキする感じ）はありますか？</label>
+                <select name="palpitations" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">全くない</option>
+                    <option value="2">少し感じる</option>
+                    <option value="1">よく感じる・強い</option>
+                </select>
+            </div>
+
+            <!-- 8. 耳鳴り -->
+            <div class="question">
+                <label>8. 耳鳴りはしますか？</label>
+                <select name="tinnitus" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">全くない</option>
+                    <option value="2">少し感じる</option>
+                    <option value="1">よく感じる・気になる</option>
+                </select>
+            </div>
+
+            <!-- 9. 運動 -->
+            <div class="question">
+                <label>9. 軽く体を動かしたり、ストレッチできましたか？</label>
+                <select name="exercise" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">しっかり動かした</option>
+                    <option value="2">少し動かした</option>
+                    <option value="1">全く動かしていない</option>
+                </select>
+            </div>
+
+            <!-- 10. 水分 -->
+            <div class="question">
+                <label>10. 水分（お水やお茶）はしっかり摂れましたか？</label>
+                <select name="water" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">十分に摂れた</option>
+                    <option value="2">まあまあ摂れた</option>
+                    <option value="1">あまり摂れなかった</option>
+                </select>
+            </div>
+
+            <!-- 11. リラックス -->
+            <div class="question">
+                <label>11. 今日、自分のためにリラックスする時間はありましたか？</label>
+                <select name="relax" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="3">あった</option>
+                    <option value="2">少しだけあった</option>
+                    <option value="1">なかった</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="evaluateCheck()">結果を診断する</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="card">
+        <h2>📊 過去の記録</h2>
+        <ul id="historyList" class="history-list">
+            <p style="color: #777; text-align: center;">まだ記録はありません</p>
+        </ul>
+    </div>
+
+    <script>
+        window.onload = loadHistory;
+
+        function evaluateCheck() {
+            const form = document.getElementById('checkForm');
+            const sleep = parseInt(form.sleep.value);
+            const meal = parseInt(form.meal.value);
+            const mood = parseInt(form.mood.value);
+            const negativeThought = parseInt(form.negative_thought.value);
+            const suicidalThought = parseInt(form.suicidal_thought.value);
+            const body = parseInt(form.body.value);
+            const palpitations = parseInt(form.palpitations.value);
+            const tinnitus = parseInt(form.tinnitus.value);
+            const exercise = parseInt(form.exercise.value);
+            const water = parseInt(form.water.value);
+            const relax = parseInt(form.relax.value);
+
+            if (isNaN(sleep) || isNaN(meal) || isNaN(mood) || isNaN(negativeThought) || isNaN(suicidalThought) || isNaN(body) || isNaN(palpitations) || isNaN(tinnitus) || isNaN(exercise) || isNaN(water) || isNaN(relax)) {
+                alert('すべての項目を選択してください。');
+                return;
+            }
+
+            const totalScore = sleep + meal + mood + negativeThought + suicidalThought + body + palpitations + tinnitus + exercise + water + relax;
+            
+            // 日付と時刻（例: 2026/9/24 14:30）を取得
+            const now = new Date();
+            const dateStr = now.toLocaleDateString();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const dateTimeStr = `${dateStr} ${timeStr}`;
+
+            let advice = "";
+            let bgColor = "";
+
+            if (totalScore >= 28) {
+                advice = "🌟 **とても良い状態です！** 心も体も安定しています。この調子でご自身のペースを大切に過ごしてください。";
+                bgColor = "#e8f5e9";
+            } else if (totalScore >= 20) {
+                advice = "☕ **少しお疲れ気味、あるいは心がデリケートになっています。** 今夜は無理をせず、温かい飲み物を飲んだりして、ご自身をたくさん労ってあげてくださいね。";
+                bgColor = "#fff3e0";
+            } else {
+                advice = "🛡️ **心も体も非常に強い負担やエネルギー不足を感じています。** 特に「消えたい」「つらい」という思いがあるときは、どうか一人で抱え込んだりせず、信頼できるご家族や友人、あるいは専門の相談窓口に気持ちを話してみてください。今日は何よりもまず、ご自身の安全と休息を最優先にしてくださいね。";
+                bgColor = "#ffebee";
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = "block";
+            resultDiv.style.backgroundColor = bgColor;
+            resultDiv.innerHTML = `<strong>【${dateTimeStr} の診断結果】</strong><br>総合スコア: ${totalScore} / 33点<br><br>${advice}`;
+
+            saveHistory(dateTimeStr, totalScore);
+        }
+
+        function saveHistory(dateTime, score) {
+            let history = JSON.parse(localStorage.getItem('selfCareHistory')) || [];
+            history.unshift({ date: dateTime, score });
+            if (history.length > 7) history.pop();
+            localStorage.setItem('selfCareHistory', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            const historyList = document.getElementById('historyList');
+            let history = JSON.parse(localStorage.getItem('selfCareHistory')) || [];
+
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="color: #777; text-align: center;">まだ記録はありません</p>';
+                return;
+            }
+
+            historyList.innerHTML = '';
+            history.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${item.date}</span> <strong>${item.score}点 / 33点</strong>`;
+                historyList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
